@@ -8,22 +8,45 @@ Created on Tue Mar 15 19:15:20 2022
 第三、第四、第五只猴子都是这样做的，问海滩上原来最少有多少个桃子？
 @author: MJW
 """
-
-def f(x):  
-    temp_x = x
-    flag = True
-    for i in range(5):
-        if(temp_x%4 == 0 ):
-            temp_x = temp_x *5 /4 +1
-        else:
-            flag = False
-            break
-    return flag,temp_x
-        
-        
+"""
+1、反推法
+"""
+#def f(x):  
+#    temp_x = x
+#    flag = True
+#    for i in range(5):
+#        if(temp_x%4 == 0 ):
+#            temp_x = temp_x *5 /4 +1
+#        else:
+#            flag = False
+#            break
+#    return flag,temp_x
+#     
+#        
+#if __name__ == "__main__":
+#    for i in range(1,10000):
+#        flag,num = f(i)
+#        if(flag):
+#            print("海滩上原来最少有{0}个桃子,第五次划分后剩余{1}个".format(num,i))
+#            break
+"""
+2、递归法
+引入计数器，寻找能满足五次划分条件的初始数量
+"""
+def func(count,num):
+    if count == 0: #count次已经分完
+        return 1
+    elif (num - 1) % 5 != 0:
+        return -1
+    else:
+        num = (num - 1) * 4 / 5 
+        return func(count-1,num)
 if __name__ == "__main__":
-    for i in range(1,10000):
-        flag,num = f(i)
-        if(flag):
-            print("海滩上原来最少有{0}个桃子,第五次划分后剩余{1}个".format(num,i))
+    n = 100
+    count = 5
+    while(1):
+        if func(count,n) == 1:
+            print("海滩上原来最少有{0}个桃子".format(n))
             break
+        n += 1
+        
